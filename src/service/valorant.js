@@ -16,7 +16,7 @@ export class ValorantService {
     }
 
     fetchMMR(puuid, lastMatchId, callback) {
-        fetch(`https://api.henrikdev.xyz/valorant/v1/by-puuid/lifetime/mmr-history/br/${puuid}?size=1`)
+        return fetch(`https://api.henrikdev.xyz/valorant/v1/by-puuid/lifetime/mmr-history/br/${puuid}?size=1`)
             .then(res => res.json())
             .then(responseBody => {
                 const mmr = this.#buildMMR(puuid, responseBody);

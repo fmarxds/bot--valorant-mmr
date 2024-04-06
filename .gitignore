@@ -324,4 +324,7 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Clinic files
+.clinic/*
+
 # End of https://www.toptal.com/developers/gitignore/api/node,dotenv,webstorm+all,visualstudiocode,windows,linux,macos

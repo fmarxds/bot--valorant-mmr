@@ -7,7 +7,7 @@ const db = new Database(process.env['PUUIDS']);
 const valorantService = new ValorantService();
 const discordService = await new DiscordService(process.env['DISCORD_BOT_TOKEN'], process.env['DISCORD_SERVER_ID'], process.env['DISCORD_CHANNEL_ID']).connect();
 
-async function verifyMMRUpdate(mmr, lastMatchId) {
+function verifyMMRUpdate(mmr, lastMatchId) {
 
     if (lastMatchId == null) {
         db.update(mmr.puuid, mmr.lastMatchId);
@@ -23,9 +23,9 @@ async function verifyMMRUpdate(mmr, lastMatchId) {
 
 }
 
-function execute() {
+async function execute() {
     for (let [puuid, lastMatchId] of Object.entries(db.getAll())) {
-        valorantService.fetchMMR(puuid, lastMatchId, verifyMMRUpdate);
+        await valorantService.fetchMMR(puuid, lastMatchId, verifyMMRUpdate);
     }
 }
 
