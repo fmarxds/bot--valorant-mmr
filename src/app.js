@@ -1,4 +1,5 @@
 import 'dotenv/config'
+import './server.js'
 import { Database } from './database/database.js';
 import { DiscordService } from './service/discord.js';
 import { ValorantService } from './service/valorant.js';
