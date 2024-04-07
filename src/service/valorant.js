@@ -1,4 +1,4 @@
-import {MMR} from '../entity/mmr.js'
+import { MMR } from '../entity/mmr.js'
 
 export class ValorantService {
 

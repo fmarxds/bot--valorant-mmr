@@ -1,7 +1,7 @@
 import 'dotenv/config'
-import {Database} from './src/database/database.js';
-import {DiscordService} from './src/service/discord.js';
-import {ValorantService} from './src/service/valorant.js';
+import { Database } from './database/database.js';
+import { DiscordService } from './service/discord.js';
+import { ValorantService } from './service/valorant.js';
 
 const db = new Database(process.env['PUUIDS']);
 const valorantService = new ValorantService();
@@ -30,3 +30,5 @@ async function execute() {
 }
 
 setInterval(execute, Number(process.env['EXECUTION_INTERVAL']));
+
+console.log('Application started!');

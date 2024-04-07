@@ -1,4 +1,4 @@
-import {Client, GatewayIntentBits, ActivityType} from "discord.js";
+import { Client, GatewayIntentBits, ActivityType } from "discord.js";
 
 export class DiscordService {
 
