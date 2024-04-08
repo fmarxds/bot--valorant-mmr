@@ -1,19 +1,19 @@
 export class Database {
 
-    #db = new Map();
+    _db = new Map();
 
     constructor(puuids) {
         for (const puuid of puuids.split(',')) {
-            this.#db[puuid] = null;
+            this._db[puuid] = null;
         }
     }
 
     getAll() {
-        return {...this.#db};
+        return {...this._db};
     }
 
     update(key, value) {
-        return this.#db[key] = value;
+        return this._db[key] = value;
     }
 
 }

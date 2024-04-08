@@ -2,33 +2,34 @@ import { Client, GatewayIntentBits, ActivityType } from "discord.js";
 
 export class DiscordService {
 
-    #client;
-    #discordServerId;
-    #discordChannelId;
-    #token
-    #discordServer;
-    #discordChannel;
+    _client;
+    _discordServerId;
+    _discordChannelId;
+    _token;
+    _discordServer;
+    _discordChannel;
 
     constructor(token, discordServerId, discordChannelId) {
-        this.#client = new Client({intents: [GatewayIntentBits.Guilds]});
-        this.#token = token;
-        this.#discordServerId = discordServerId;
-        this.#discordChannelId = discordChannelId;
+        this._client = new Client({intents: [GatewayIntentBits.Guilds]});
+        this._token = token;
+        this._discordServerId = discordServerId;
+        this._discordChannelId = discordChannelId;
+
+        this._client.once('ready', () => {
+            this._client.user.setStatus("online");
+            this._client.user.setActivity("Você", {type: ActivityType.Watching});
+            this._discordServer = this._client.guilds.cache.get(this._discordServerId);
+            this._discordChannel = this._discordServer.channels.cache.get(this._discordChannelId);
+        });
     }
 
     async connect() {
-        await this.#client.login(this.#token)
-            .then(() => {
-                this.#client.user.setStatus("online");
-                this.#client.user.setActivity("Você", {type: ActivityType.Watching});
-                this.#discordServer = this.#client.guilds.cache.get(this.#discordServerId);
-                this.#discordChannel = this.#discordServer.channels.cache.get(this.#discordChannelId);
-            });
+        await this._client.login(this._token);
         return this;
     }
 
     sendMessage(text) {
-        this.#discordChannel.send(text);
+        this._discordChannel.send(text);
     }
 
 }
