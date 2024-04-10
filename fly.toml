@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for bot-valorant-mmr on 2024-04-06T21:23:07-03:00
+# fly.toml app configuration file generated for bot-valorant-mmr-divine-sun-9609 on 2024-04-09T21:51:34-03:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'bot-valorant-mmr'
+app = 'bot-valorant-mmr-divine-sun-9609'
 primary_region = 'iad'
 
 [build]
