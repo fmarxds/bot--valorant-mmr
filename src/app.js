@@ -21,7 +21,7 @@ function verifyMMRUpdate(mmr, lastMatchId) {
 
     discordService.sendMessage(mmr.updateMessage());
     db.update(mmr.puuid, mmr.lastMatchId);
-    console.log(`MMR Updated: ${mmr.toString()}`)
+    console.log(`MMR Updated: ${mmr.name}`)
 
 }
 
