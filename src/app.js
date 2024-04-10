@@ -26,7 +26,8 @@ function verifyMMRUpdate(mmr, lastMatchId) {
 
 async function execute() {
     for (let [puuid, lastMatchId] of Object.entries(db.getAll())) {
-        await valorantService.fetchMMR(puuid, lastMatchId, verifyMMRUpdate);
+        valorantService.fetchMMR(puuid, lastMatchId, verifyMMRUpdate)
+            .catch(err => console.log(err));
     }
 }
 
