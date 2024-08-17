@@ -5,7 +5,7 @@ import { DiscordService } from './service/discord.js';
 import { ValorantService } from './service/valorant.js';
 
 const db = new Database(process.env['PUUIDS']);
-const valorantService = new ValorantService();
+const valorantService = new ValorantService(process.env['HDEV_TOKEN']);
 const discordService = await new DiscordService(process.env['DISCORD_BOT_TOKEN'], process.env['DISCORD_SERVER_ID'], process.env['DISCORD_CHANNEL_ID']).connect();
 
 function verifyMMRUpdate(mmr, lastMatchId) {
