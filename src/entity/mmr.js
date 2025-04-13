@@ -56,7 +56,7 @@ export class MMR {
     }
 
     updateMessage() {
-        return `:loudspeaker:\n        ${bold(this._playerName)} acabou de ${this._wonLastMatch ? bold('GANHAR') : bold('PERDER')} ${this._pdl} PDLs no mapa ${this._lastMapName}   ${this._wonLastMatch ? ':sunglasses:' : ':pleading_face:'}\n        Elo atual: ${this._tier} / ${this._rankInTier} pontos`;
+        return `:loudspeaker:\n        ${bold(this._playerName)} acabou de ${this._wonLastMatch ? bold('GANHAR') : bold('PERDER')} ${this._pdl} PDLs no mapa ${this._lastMapName}   ${this._wonLastMatch ? ':sunglasses:' : ':pleading_face:'}\n        Elo atual: ${this._tier} :arrow_right: ${this._rankInTier} pontos`;
     }
 
 }
