@@ -1,4 +1,5 @@
 import { bold } from 'discord.js';
+import { MatchStatus } from './match-status-enum.js'
 
 export class MMR {
 
@@ -6,7 +7,7 @@ export class MMR {
     _playerName;
     _lastMatchId;
     _lastMapName;
-    _wonLastMatch;
+    _lastMatchStatus;
     _pdl;
     _tier;
     _rankInTier;
@@ -16,10 +17,18 @@ export class MMR {
         this._playerName = playerName;
         this._lastMatchId = lastMatchId;
         this._lastMapName = lastMapName;
-        this._wonLastMatch = pdl >= 0;
         this._pdl = Math.abs(pdl);
         this._tier = tier;
         this._rankInTier = rankInTier;
+
+        if (pdl === 0) {
+            this._lastMatchStatus = MatchStatus.DRAW;
+        } else if (pdl > 0) {
+            this._lastMatchStatus = MatchStatus.VICTORY;
+        } else {
+            this._lastMatchStatus = MatchStatus.DEFEAT;
+        }
+
     }
 
 
@@ -39,8 +48,8 @@ export class MMR {
         return this._lastMapName;
     }
 
-    get wonLastMatch() {
-        return this._wonLastMatch;
+    get lastMatchStatus() {
+        return this._lastMatchStatus;
     }
 
     get pdl() {
@@ -56,7 +65,23 @@ export class MMR {
     }
 
     updateMessage() {
-        return `:loudspeaker:\n        ${bold(this._playerName)} acabou de ${this._wonLastMatch ? bold('GANHAR') : bold('PERDER')} ${this._pdl} PDLs no mapa ${this._lastMapName}   ${this._wonLastMatch ? ':sunglasses:' : ':pleading_face:'}\n        Elo atual: ${this._tier} :arrow_right: ${this._rankInTier} pontos`;
+        let message;
+
+        switch (this._lastMatchStatus) {
+            case MatchStatus.VICTORY:
+                message = `:loudspeaker:\n        ${bold(this._playerName)} acabou de ${bold('GANHAR')} ${this._pdl} PDLs no mapa ${this._lastMapName}   :sunglasses:\n        Elo atual: ${this._tier} :arrow_right: ${this._rankInTier} pontos`;
+                break;
+
+            case MatchStatus.DEFEAT:
+                message = `:loudspeaker:\n        ${bold(this._playerName)} acabou de ${bold('PERDER')} ${this._pdl} PDLs no mapa ${this._lastMapName}   :pleading_face:}\n        Elo atual: ${this._tier} :arrow_right: ${this._rankInTier} pontos`;
+                break;
+
+            case MatchStatus.DRAW:
+                message = `:loudspeaker:\n        ${bold(this._playerName)} acabou de ${bold('PERDER VÁRIOS MINUTOS DE VIDA')} empatando no mapa ${this._lastMapName} e ganhando ${this._pdl} PDLs    :weary:\n        Elo atual: ${this._tier} :arrow_right: ${this._rankInTier} pontos`;
+                break;
+        }
+
+        return message;
     }
 
 }
