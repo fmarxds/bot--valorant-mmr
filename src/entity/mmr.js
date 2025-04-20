@@ -73,7 +73,7 @@ export class MMR {
                 break;
 
             case MatchStatus.DEFEAT:
-                message = `:loudspeaker:\n        ${bold(this._playerName)} acabou de ${bold('PERDER')} ${this._pdl} PDLs no mapa ${this._lastMapName}   :pleading_face:}\n        Elo atual: ${this._tier} :arrow_right: ${this._rankInTier} pontos`;
+                message = `:loudspeaker:\n        ${bold(this._playerName)} acabou de ${bold('PERDER')} ${this._pdl} PDLs no mapa ${this._lastMapName}   :pleading_face:\n        Elo atual: ${this._tier} :arrow_right: ${this._rankInTier} pontos`;
                 break;
 
             case MatchStatus.DRAW:
