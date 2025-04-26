@@ -8,18 +8,12 @@ export class Leaderboard {
 
     updateMessage() {
 
-        let message = '';
+        let message = ':trophy:\n';
 
         this._mmrs
             .sort((a, b) => b.elo - a.elo)
             .forEach((mmr, index) => {
-
-                if (index === 0) {
-                    message = message + ':trophy:\n';
-                }
-
-                message = message + `${index + 1}. ${mmr.statusMessage()}\n`;
-
+                message = message + `${index + 1}. ${mmr.leaderboardMessage()}\n`;
             });
 
         return message;

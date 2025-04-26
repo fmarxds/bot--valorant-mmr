@@ -1,4 +1,4 @@
-import { bold } from 'discord.js';
+import { bold, italic } from 'discord.js';
 import { MatchStatus } from './match-status-enum.js'
 
 export class MMR {
@@ -12,8 +12,9 @@ export class MMR {
     _tier;
     _rankInTier;
     _elo;
+    _match;
 
-    constructor(puuid, playerName, lastMatchId, lastMapName, pdl, tier, rankInTier, elo) {
+    constructor(puuid, playerName, lastMatchId, lastMapName, pdl, tier, rankInTier, elo, match) {
         this._puuid = puuid;
         this._playerName = playerName;
         this._lastMatchId = lastMatchId;
@@ -22,6 +23,7 @@ export class MMR {
         this._tier = tier;
         this._rankInTier = rankInTier;
         this._elo = elo;
+        this._match = match;
 
         if (pdl === 0) {
             this._lastMatchStatus = MatchStatus.DRAW;
@@ -54,26 +56,44 @@ export class MMR {
     }
 
     updateMessage() {
-        let message;
+        let message = `:loudspeaker:\n${bold(this._playerName)} acabou de `;
 
         switch (this._lastMatchStatus) {
             case MatchStatus.VICTORY:
-                message = `:loudspeaker:\n${bold(this._playerName)} acabou de ${bold('GANHAR')} ${this._pdl} PDLs no mapa ${this._lastMapName}   :sunglasses:\nElo atual: ${this._tier} | ${this._rankInTier} pontos`;
+                message += `${bold('GANHAR')} ${this._pdl} PDLs `;
                 break;
 
             case MatchStatus.DEFEAT:
-                message = `:loudspeaker:\n${bold(this._playerName)} acabou de ${bold('PERDER')} ${this._pdl} PDLs no mapa ${this._lastMapName}   :pleading_face:\nElo atual: ${this._tier} | ${this._rankInTier} pontos`;
+                message += `${bold('PERDER')} ${this._pdl} PDLs `;
                 break;
 
             case MatchStatus.DRAW:
-                message = `:loudspeaker:\n${bold(this._playerName)} acabou de ${bold('PERDER VÁRIOS MINUTOS DE VIDA')} empatando no mapa ${this._lastMapName} e ganhando ${this._pdl} PDLs    :weary:\nElo atual: ${this._tier} | ${this._rankInTier} pontos`;
+                message += `${bold('PERDER VÁRIOS MINUTOS DE VIDA')} empatando `;
                 break;
         }
+
+        message += `no mapa ${this._lastMapName}!`;
+
+        message += `\n\n:mag: ${bold(italic('ELO ATUAL'))}\n`;
+        message += `${this._tier} | ${this._rankInTier} Pontos`;
+
+        message += `\n\n:pencil: ${bold(italic('ESTATÍSTICAS'))}\n`;
+        message += '```\n';
+        message += `${'Placar: '.padEnd(16) + this._match.scoreboard}\n`;
+        message += `${'Duração: '.padEnd(16) + this._match.matchDurationMinutes}\n`;
+        message += `${'Agente: '.padEnd(16) + this._match.player.agentName}\n`;
+        message += `${'KDA: '.padEnd(16) + this._match.player.kda}\n`;
+        message += `${'Headshots: '.padEnd(16) + this._match.player.headshots}\n`;
+        message += `${'Bodyshots: '.padEnd(16) + this._match.player.bodyshots}\n`;
+        message += `${'Legshots: '.padEnd(16) + this._match.player.legshots}\n`;
+        message += `${'Dano Causado: '.padEnd(16) + this._match.player.damageDealt}\n`;
+        message += `${'Dano Recebido: '.padEnd(16) + this._match.player.damageReceived}\n`;
+        message += '```';
 
         return message;
     }
 
-    statusMessage() {
+    leaderboardMessage() {
         return `${bold(this._playerName)} | ${this._tier} (${this._rankInTier} PDLs)`;
     }
 
