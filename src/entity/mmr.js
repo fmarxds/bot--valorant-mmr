@@ -11,8 +11,9 @@ export class MMR {
     _pdl;
     _tier;
     _rankInTier;
+    _elo;
 
-    constructor(puuid, playerName, lastMatchId, lastMapName, pdl, tier, rankInTier) {
+    constructor(puuid, playerName, lastMatchId, lastMapName, pdl, tier, rankInTier, elo) {
         this._puuid = puuid;
         this._playerName = playerName;
         this._lastMatchId = lastMatchId;
@@ -20,6 +21,7 @@ export class MMR {
         this._pdl = Math.abs(pdl);
         this._tier = tier;
         this._rankInTier = rankInTier;
+        this._elo = elo;
 
         if (pdl === 0) {
             this._lastMatchStatus = MatchStatus.DRAW;
@@ -30,7 +32,6 @@ export class MMR {
         }
 
     }
-
 
     get puuid() {
         return this._puuid;
@@ -44,24 +45,12 @@ export class MMR {
         return this._lastMatchId;
     }
 
-    get lastMapName() {
-        return this._lastMapName;
-    }
-
-    get lastMatchStatus() {
-        return this._lastMatchStatus;
-    }
-
-    get pdl() {
-        return this._pdl;
-    }
-
     get tier() {
         return this._tier;
     }
 
-    get rankInTier() {
-        return this._rankInTier;
+    get elo() {
+        return this._elo;
     }
 
     updateMessage() {
@@ -69,19 +58,23 @@ export class MMR {
 
         switch (this._lastMatchStatus) {
             case MatchStatus.VICTORY:
-                message = `:loudspeaker:\n        ${bold(this._playerName)} acabou de ${bold('GANHAR')} ${this._pdl} PDLs no mapa ${this._lastMapName}   :sunglasses:\n        Elo atual: ${this._tier} :arrow_right: ${this._rankInTier} pontos`;
+                message = `:loudspeaker:\n${bold(this._playerName)} acabou de ${bold('GANHAR')} ${this._pdl} PDLs no mapa ${this._lastMapName}   :sunglasses:\nElo atual: ${this._tier} | ${this._rankInTier} pontos`;
                 break;
 
             case MatchStatus.DEFEAT:
-                message = `:loudspeaker:\n        ${bold(this._playerName)} acabou de ${bold('PERDER')} ${this._pdl} PDLs no mapa ${this._lastMapName}   :pleading_face:\n        Elo atual: ${this._tier} :arrow_right: ${this._rankInTier} pontos`;
+                message = `:loudspeaker:\n${bold(this._playerName)} acabou de ${bold('PERDER')} ${this._pdl} PDLs no mapa ${this._lastMapName}   :pleading_face:\nElo atual: ${this._tier} | ${this._rankInTier} pontos`;
                 break;
 
             case MatchStatus.DRAW:
-                message = `:loudspeaker:\n        ${bold(this._playerName)} acabou de ${bold('PERDER VÁRIOS MINUTOS DE VIDA')} empatando no mapa ${this._lastMapName} e ganhando ${this._pdl} PDLs    :weary:\n        Elo atual: ${this._tier} :arrow_right: ${this._rankInTier} pontos`;
+                message = `:loudspeaker:\n${bold(this._playerName)} acabou de ${bold('PERDER VÁRIOS MINUTOS DE VIDA')} empatando no mapa ${this._lastMapName} e ganhando ${this._pdl} PDLs    :weary:\nElo atual: ${this._tier} | ${this._rankInTier} pontos`;
                 break;
         }
 
         return message;
+    }
+
+    statusMessage() {
+        return `${bold(this._playerName)} | ${this._tier} (${this._rankInTier} PDLs)`;
     }
 
 }
