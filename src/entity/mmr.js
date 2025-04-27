@@ -75,10 +75,10 @@ export class MMR {
         message += `no mapa ${this._lastMapName}!`;
 
         message += `\n\n:mag: ${bold(italic('ELO ATUAL'))}\n`;
-        message += `${this._tier} | ${this._rankInTier} Pontos`;
+        message += `${this._tier}\n${this._rankInTier} Pontos`;
 
         message += `\n\n:pencil: ${bold(italic('ESTATÍSTICAS'))}\n`;
-        message += '```\n';
+        message += '```JSON\n';
         message += `${'Placar: '.padEnd(16) + this._match.scoreboard}\n`;
         message += `${'Duração: '.padEnd(16) + this._match.matchDurationMinutes}\n`;
         message += `${'Agente: '.padEnd(16) + this._match.player.agentName}\n`;

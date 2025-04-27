@@ -20,9 +20,9 @@ export class MatchPlayer {
         this._agentName = agentName;
         this._score = score;
         this._kda = `${kills} / ${deaths} / ${assists}`;
-        this._headshots = `${headshots} (${(headshots / (headshots + bodyshots + legshots) * 100).toFixed(2)}%)`;
-        this._bodyshots = `${bodyshots} (${(bodyshots / (headshots + bodyshots + legshots) * 100).toFixed(2)}%)`;
-        this._legshots = `${legshots} (${(legshots / (headshots + bodyshots + legshots) * 100).toFixed(2)}%)`;
+        this._headshots = `${headshots.toString().padEnd(3)} (${(headshots / (headshots + bodyshots + legshots) * 100).toFixed(2)}%)`;
+        this._bodyshots = `${bodyshots.toString().padEnd(3)} (${(bodyshots / (headshots + bodyshots + legshots) * 100).toFixed(2)}%)`;
+        this._legshots = `${legshots.toString().padEnd(3)} (${(legshots / (headshots + bodyshots + legshots) * 100).toFixed(2)}%)`;
         this._damageDealt = damageDealt;
         this._damageReceived = damageReceived;
     }
