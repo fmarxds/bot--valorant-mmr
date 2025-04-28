@@ -32,11 +32,19 @@ export class ValorantService {
     }
 
     _buildMatch(puuid, fetchMatchResponseBody) {
+        let teamRounds;
+
+        if (fetchMatchResponseBody.data.teams.filter(team => team.won).length > 0) {
+            teamRounds = fetchMatchResponseBody.data.teams.filter(team => team.won)[0];
+        } else {
+            teamRounds = fetchMatchResponseBody.data.teams[0];
+        }
+
         return new Match(
             fetchMatchResponseBody.data.metadata.match_id,
             (fetchMatchResponseBody.data.metadata.game_length_in_ms / 60000).toFixed(0) + " Minutos",
-            fetchMatchResponseBody.data.teams.filter(team => team.won)[0].rounds.won,
-            fetchMatchResponseBody.data.teams.filter(team => team.won)[0].rounds.lost,
+            teamRounds.rounds.won,
+            teamRounds.rounds.lost,
             this._buildMatchPlayer(fetchMatchResponseBody.data.players.filter(player => player.puuid === puuid)[0]),
         );
     }
