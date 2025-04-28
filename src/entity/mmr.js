@@ -79,6 +79,7 @@ export class MMR {
 
         message += `\n\n:pencil: ${bold(italic('ESTATÍSTICAS'))}\n`;
         message += '```JSON\n';
+        message += `${'Mapa: '.padEnd(16) + this._lastMapName}\n`;
         message += `${'Placar: '.padEnd(16) + this._match.scoreboard}\n`;
         message += `${'Duração: '.padEnd(16) + this._match.matchDurationMinutes}\n`;
         message += `${'Agente: '.padEnd(16) + this._match.player.agentName}\n`;
